@@ -1,0 +1,2 @@
+id: ad name: ad credit: 2
+id: af name: af credit: 3
