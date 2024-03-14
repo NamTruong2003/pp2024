@@ -3,6 +3,7 @@ from domains.marks import *
 from domains.students import *
 import math
 import numpy
+import gzip
 numberStudent = 0
 numberCourse = 0
 listMark = []
@@ -84,3 +85,19 @@ def calculate_avarage_GPA():
             if(listStudent[_].GPA<listStudent[_+1].GPA):
                 listStudent[_],listStudent[_+1]=listStudent[_+1],listStudent[_]
         n -= 1
+def compress_files():
+    file_paths = ['students.txt', 'courses.txt', 'marks.txt']
+    output_path = 'students.dat'
+
+    with gzip.open(output_path, 'wb') as output_file:
+        for file_path in file_paths:
+            with open(file_path, 'rb') as input_file:
+                output_file.write(input_file.read())
+def decompress_files():
+    input_path = 'students.dat'
+    file_paths = ['students.txt', 'courses.txt', 'marks.txt']
+
+    with gzip.open(input_path, 'rb') as input_file:
+        for i, file_path in enumerate(file_paths):
+            with open(file_path, 'wb') as output_file:
+                output_file.write(input_file.read(i + 1))
